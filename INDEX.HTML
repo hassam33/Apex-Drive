@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Drive | Premium Automotive Services & Rentals</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fa-solid fa-gauge-high logo-icon"></i>
+                <span>APEX<span class="highlight">DRIVE</span></span>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="#home" class="nav-btn active" onclick="switchTab('home')">Home</a>
+                <a href="#packages" class="nav-btn" onclick="switchTab('packages')">Packages</a>
+                <a href="#fleet" class="nav-btn" onclick="switchTab('fleet')">Luxury Fleet</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="cart-icon-btn" onclick="switchTab('cart')">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-count" class="badge">0</span>
+                </button>
+                <div id="user-profile-section">
+                    <button class="btn btn-outline" id="login-nav-btn" onclick="openAuthModal('login')">
+                        <i class="fa-solid fa-user"></i> Sign In
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN VIEW CONTAINER -->
+    <main class="main-content">
+
+        <!-- 1. HOME VIEW -->
+        <section id="view-home" class="tab-view active">
+            <div class="hero-banner">
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <span class="hero-tag">EXPERIENCE THE ULTIMATE PERFORMANCE</span>
+                    <h1>ENGINEERED FOR <span class="highlight-text">EXCELLENCE</span></h1>
+                    <p>From high-end auto detailing and precision tuning packages to exotic luxury vehicle rentals.</p>
+                    <div class="hero-cta">
+                        <button class="btn btn-primary btn-lg" onclick="switchTab('packages')">Explore Packages</button>
+                        <button class="btn btn-secondary btn-lg" onclick="switchTab('fleet')">Browse Fleet</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <h3>Certified Technicians</h3>
+                    <p>Factory-trained specialists for paint correction and mechanical upgrades.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-car-burst"></i>
+                    <h3>Premium Detailing</h3>
+                    <p>Ceramic coatings and full restorative detailing for showroom shine.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-key"></i>
+                    <h3>Exotic Fleet Access</h3>
+                    <p>Drive top-tier supercar rentals with seamless daily reservation options.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. PACKAGES & SERVICES VIEW -->
+        <section id="view-packages" class="tab-view">
+            <div class="section-header">
+                <h2>Service & Maintenance <span class="highlight-text">Packages</span></h2>
+                <p>Choose a tailored package for your vehicle and add directly to your cart.</p>
+            </div>
+            <div class="grid-container" id="packages-container">
+                <!-- Injected via JavaScript -->
+            </div>
+        </section>
+
+        <!-- 3. LUXURY FLEET VIEW -->
+        <section id="view-fleet" class="tab-view">
+            <div class="section-header">
+                <h2>Exotic Rental <span class="highlight-text">Fleet</span></h2>
+                <p>Book high-performance supercars by the day with instant cart confirmation.</p>
+            </div>
+            <div class="grid-container" id="fleet-container">
+                <!-- Injected via JavaScript -->
+            </div>
+        </section>
+
+        <!-- 4. CART & CHECKOUT VIEW -->
+        <section id="view-cart" class="tab-view">
+            <div class="section-header">
+                <h2>Your Reserved <span class="highlight-text">Cart</span></h2>
+                <p>Review your selected detailing packages and car rental reservations.</p>
+            </div>
+
+            <div class="cart-wrapper">
+                <div class="cart-items-column" id="cart-items-container">
+                    <!-- Dynamic Cart Content -->
+                </div>
+
+                <div class="cart-summary-card">
+                    <h3>Order Summary</h3>
+                    <hr class="divider">
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span id="summary-subtotal">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Estimated Tax (8%)</span>
+                        <span id="summary-tax">$0.00</span>
+                    </div>
+                    <hr class="divider">
+                    <div class="summary-row total-row">
+                        <span>Total Due</span>
+                        <span id="summary-total">$0.00</span>
+                    </div>
+                    <button class="btn btn-primary btn-block" onclick="checkoutProcess()">
+                        Proceed to Checkout <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                    <button class="btn btn-secondary btn-block" onclick="switchTab('packages')">
+                        <i class="fa-solid fa-plus"></i> Add More Items
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- AUTHENTICATION MODAL -->
+    <div class="modal-overlay" id="auth-modal">
+        <div class="modal-card">
+            <button class="modal-close-btn" onclick="closeAuthModal()">&times;</button>
+            
+            <div class="modal-tabs">
+                <button class="auth-tab-btn active" id="tab-btn-login" onclick="switchAuthTab('login')">Sign In</button>
+                <button class="auth-tab-btn" id="tab-btn-register" onclick="switchAuthTab('register')">Register</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form active" onsubmit="handleAuthSubmit(event, 'login')">
+                <h3>Welcome Back</h3>
+                <div class="input-group">
+                    <label><i class="fa-solid fa-envelope"></i> Email Address</label>
+                    <input type="email" id="login-email" placeholder="driver@apexdrive.com" required>
+                </div>
+                <div class="input-group">
+                    <label><i class="fa-solid fa-lock"></i> Password</label>
+                    <input type="password" id="login-pass" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="register-form" class="auth-form" onsubmit="handleAuthSubmit(event, 'register')">
+                <h3>Create Account</h3>
+                <div class="input-group">
+                    <label><i class="fa-solid fa-user"></i> Full Name</label>
+                    <input type="text" id="reg-name" placeholder="John Doe" required>
+                </div>
+                <div class="input-group">
+                    <label><i class="fa-solid fa-envelope"></i> Email Address</label>
+                    <input type="email" id="reg-email" placeholder="john@example.com" required>
+                </div>
+                <div class="input-group">
+                    <label><i class="fa-solid fa-lock"></i> Password</label>
+                    <input type="password" id="reg-pass" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Register Account</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION TOAST -->
+    <div id="toast" class="toast-notification"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
